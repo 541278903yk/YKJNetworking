@@ -1,5 +1,6 @@
 plugins {
-    alias(libs.plugins.androidLibrary)
+    id("com.android.library")
+    id("maven-publish")
 }
 
 android {
@@ -30,10 +31,5 @@ android {
 
 dependencies {
 
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
     implementation("com.squareup.okhttp3:okhttp:3.14.7")
 }
