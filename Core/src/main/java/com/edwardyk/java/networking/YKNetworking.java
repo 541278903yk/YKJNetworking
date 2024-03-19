@@ -28,6 +28,25 @@ public class YKNetworking {
 
     private Map<String, String> inputParams = null;
 
+    public interface YKNetworkingDynamicHeader {
+
+        Map<String, String> dynamicHeader(YKNetworkingRequest request);
+    }
+
+    public interface YKNetworkingDynamicParams {
+
+        Map<String, String> dynamicParams(YKNetworkingRequest request);
+    }
+
+    public interface YKNetworkingHandleResponse {
+
+        Error callBack(YKNetworkingRequest request, YKNetworkingResponse response);
+    }
+
+    public interface YKNetworkingProgress extends Cloneable {
+        void progress(float progress);
+    }
+
     private YKNetworkingRequest getRequest() {
         if (request == null){
             request = new YKNetworkingRequest();
@@ -254,7 +273,7 @@ public class YKNetworking {
 
             if (requestCopy.isUpload) {
 
-                YKBaseNetworking.upload(requestCopy, new YKBaseNetworkingResult() {
+                YKBaseNetworking.upload(requestCopy, new YKBaseNetworking.YKBaseNetworkingResult() {
                     @Override
                     public void success(YKNetworkingRequest request, YKNetworkingResponse response) {
                         weakNetworking.saveTask(request, response, null);
@@ -268,9 +287,10 @@ public class YKNetworking {
                         callBack.onComplate(request, response,error);
                     }
                 });
+
             } else if (requestCopy.isDownload) {
 
-                YKBaseNetworking.download(requestCopy, new YKBaseNetworkingResult() {
+                YKBaseNetworking.download(requestCopy, new YKBaseNetworking.YKBaseNetworkingResult() {
                     @Override
                     public void success(YKNetworkingRequest request, YKNetworkingResponse response) {
                         weakNetworking.saveTask(request, response, null);
@@ -285,7 +305,7 @@ public class YKNetworking {
                     }
                 });
             } else {
-                YKBaseNetworking.request(requestCopy, new YKBaseNetworkingResult() {
+                YKBaseNetworking.request(requestCopy, new YKBaseNetworking.YKBaseNetworkingResult() {
                     @Override
                     public void success(YKNetworkingRequest request, YKNetworkingResponse response) {
                         weakNetworking.saveTask(request, response, null);

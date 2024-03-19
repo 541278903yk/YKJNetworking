@@ -20,6 +20,7 @@ public class YKNetworkingResponse implements Cloneable {
         }catch (CloneNotSupportedException exception) {
             exception.printStackTrace();
         }
+
         return response;
     }
 }

@@ -52,9 +52,9 @@ public class YKNetworkingRequest implements Cloneable  {
 
     public Object mockData = null;
 
-    public YKNetworkingProgress progressCallBack = null;
+    public YKNetworking.YKNetworkingProgress progressCallBack = null;
 
-    public YKNetworkingHandleResponse handleResponse = null;
+    public YKNetworking.YKNetworkingHandleResponse handleResponse = null;
 
     public float repeatRequestInterval = 0;
 

@@ -7,6 +7,12 @@ import okhttp3.*;
 
 class YKBaseNetworking {
 
+    interface YKBaseNetworkingResult
+    {
+        void success(YKNetworkingRequest request, YKNetworkingResponse response);
+
+        void failure(YKNetworkingRequest request, Boolean isCache, Object responseObject, Error error);
+    }
     static void request(YKNetworkingRequest request, YKBaseNetworkingResult result) {
         try{
 
