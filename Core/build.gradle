@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace 'com.edwardyk.java.networking'
-    compileSdk 31
+    compileSdk 34
 
     defaultConfig {
         minSdk 21
