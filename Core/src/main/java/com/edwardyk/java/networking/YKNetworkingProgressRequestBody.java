@@ -6,7 +6,6 @@ import okio.Buffer;
 import okio.BufferedSink;
 import okio.ForwardingSink;
 import okio.Okio;
-import okio.Source;
 
 import okhttp3.*;
 
@@ -39,6 +38,8 @@ public class YKNetworkingProgressRequestBody extends RequestBody {
     public long contentLength() throws IOException {
         return body.contentLength();
     }
+
+
 
     @Override
     public void writeTo(BufferedSink sink) throws IOException {
