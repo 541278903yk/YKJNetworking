@@ -96,7 +96,6 @@ public class YKNetworkingRequest implements Cloneable  {
         }
         newRequest.params = new HashMap<>();
         newRequest.header = new HashMap<>();
-        newRequest.handleResponse = this.handleResponse;
         if (this.params != null) {
             Iterator<String> it = this.params.keySet().iterator();
             while (it.hasNext()) {
