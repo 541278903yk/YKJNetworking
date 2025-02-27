@@ -1,7 +1,13 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+
+def YK_VERSION_CODE = 122
+def YK_VERSION_NAME = "1.2.2"
+def YK_GROUP_ID = 'com.github.541278903yk'
+def YK_ARTIFACT_ID = 'YKJNetworking'
 
 android {
-    namespace 'com.edwardyk.java.networking'
+    namespace 'com.github.541278903yk'
     compileSdk 34
 
     defaultConfig {
@@ -20,6 +26,67 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+publishing {
+    publications {
+        // 定义一个名为 release 的 Maven 发布项
+        release(MavenPublication) {
+            // 项目的组 ID，通常是公司或组织的域名倒序
+            groupId YK_GROUP_ID
+            // 项目的制品 ID，一般是库的名称
+            artifactId YK_ARTIFACT_ID
+            // 项目的版本号
+            version YK_VERSION_NAME
+
+            afterEvaluate {
+                // 指定要发布的组件为 release 版本
+                from components.release
+            }
+
+        }
+    }
+//    publications {
+//        maven(MavenPublication) { // 容器可配置的信息 MavenPublication
+//            groupId YK_GROUP_ID
+//            artifactId YK_ARTIFACT_ID
+//            version YK_VERSION_NAME
+//
+//            // 配置上传源码
+////            artifact(sourceJar)
+//            // 指定生成的aar路径
+//            artifact "$buildDir/outputs/aar/${project.name}-release.aar"
+//            // pom文件中声明依赖，从而传递到使用方
+//            pom.withXml {
+//                def dependenciesNode = asNode().appendNode('dependencies')
+//                // 必要的传递性依赖
+//                def coreDependencies = ['api', 'implementation']
+//                coreDependencies.each { dependency ->
+//                    def config = configurations[dependency]
+//                    println("lqr configurations = ${config}, class = ${config.class}")
+//                    // 提取每种传递性依赖配置中，依赖的第三方库信息
+//                    config.allDependencies.each {
+//                        def dependencyNode = dependenciesNode.appendNode('dependency')
+//                        dependencyNode.appendNode('groupId', it.group)
+//                        dependencyNode.appendNode('artifactId', it.name)
+//                        dependencyNode.appendNode('version', it.version)
+//                        // dependencyNode.appendNode('scope', dependency)
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+    repositories {
+        // 指定发布的仓库为本地 Maven 仓库
+        maven {
+            url "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+            credentials {
+                username = project.hasProperty('sonatypeUsername') ? project.sonatypeUsername : ""
+                password = project.hasProperty('sonatypePassword') ? project.sonatypePassword : ""
+            }
+        }
     }
 }
 
